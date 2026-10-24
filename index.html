@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DLSU-D Campus Jeep Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="landing.js" defer></script>
+</head>
+<body>
+
+<div class="landing">
+  <main class="landing-main">
+    <div class="landing-box">
+      <div class="landing-logo">🚌</div>
+      <h1>IKOTSABAY: Ikot La Salle Tracker</h1>
+      <h3>Your Track, One Stop At A Time</h3>
+      <p class="landing-sub">De La Salle University – Dasmariñas<br>Who is using the tracker?</p>
+
+      <div class="role-grid">
+        <button id="studentBtn" class="role-card" type="button">
+          <span class="role-icon">🎓</span>
+          <span class="role-title">Student</span>
+          <span class="role-desc">See where the jeeps are and when they arrive</span>
+        </button>
+
+        <button id="tsuperBtn" class="role-card" type="button">
+          <span class="role-icon">🚌</span>
+          <span class="role-title">Tsuper</span>
+          <span class="role-desc">Driver access. A jeep code is required</span>
+        </button>
+      </div>
+
+      <!-- Tsuper code entry (hidden until Tsuper is clicked) -->
+      <div id="codePanel" class="code-panel" hidden>
+        <form id="codeForm" autocomplete="off">
+          <label for="codeInput">Enter your jeep code</label>
+          <div class="code-row">
+            <input id="codeInput" type="text" maxlength="12" placeholder="e.g. ABC123" />
+            <button type="submit" class="btn-primary">Enter</button>
+          </div>
+          <p id="codeError" class="code-error" role="alert"></p>
+          <button id="cancelCode" type="button" class="link-btn">← Back</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="landing-foot">
+    <p>© <span id="year"></span> DLSU-D Campus Jeep Tracker • Student project</p>
+  </footer>
+</div>
+
+</body>
+</html>

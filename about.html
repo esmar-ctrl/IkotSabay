@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | DLSU-D Campus Jeep Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <span class="brand-mark">🚌</span>
+      <div>
+        <h1>DLSU-D Campus Jeep Tracker</h1>
+        <p>De La Salle University – Dasmariñas</p>
+      </div>
+    </div>
+    <nav>
+      <a href="home.html#map">Live Map</a>
+      <a href="home.html#campus-map">Campus Map</a>
+      <a href="home.html#jeeps">Jeeps</a>
+      <a href="home.html#timetable">Timetable</a>
+      <a href="about.html" class="active">About</a>
+      <a href="index.html">Switch role</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero page-hero">
+  <div class="container">
+    <h2>About this project</h2>
+    <p>The Ikot La Salle transportation tracker for De La Salle University – Dasmariñas.</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <section id="about" class="card about-card">
+    <div class="card-head"><h3>About this project</h3></div>
+    <p>The proposed transportation system aims to improve the overall accessibility, convenience, and efficiency of the Ikot La Salle transportation service within De La Salle University–Dasmariñas. It seeks to provide a more organized and user-friendly transportation experience for students and other members of the university community. Through the development of an accessible transportation platform, the system aims to enhance the way passengers interact with and utilize the campus transportation service.</p>
+    <p class="muted small">Members: Jores, Sanchez, Ahmed</p>
+  </section>
+
+  <section id="methodology" class="card about-card">
+    <div class="card-head"><h3>Methodology</h3></div>
+    <p><b>Graph Theory</b> is used in mapping the campus. To create a physical layout of the campus and jeep’s routes inside.</p>
+    <p><b>Algorithms</b> is used in calculating the arrival time. Will be running in the background to convert live location updates into estimated arrival times (ETAs).</p>
+  </section>
+
+  <div class="back-wrap">
+    <a class="back-btn" href="home.html">← Back to tracker</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> DLSU-D Campus Jeep Tracker • Student project</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
