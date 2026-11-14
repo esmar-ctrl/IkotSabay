@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home | DLSU-D Campus Jeep Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="routes.js" defer></script>
   <script src="script.js" defer></script>
   <script src="driver.js" defer></script>
 </head>
@@ -50,6 +51,8 @@
     <h2>Know when your ride arrives.</h2>
     <p>Estimated jeep arrivals per stop, based on measured and researched travel times around campus.</p>
     <div class="finder">
+      <label for="routeSelect">Direction:</label>
+      <select id="routeSelect"></select>
       <label for="stopSelect">I'm waiting at:</label>
       <select id="stopSelect"></select>
       <div class="finder-result" id="finderResult">
@@ -92,6 +95,7 @@
       <span><i class="dot jeep"></i> Jeep (estimated position)</span>
       <span><i class="dot next"></i> Selected stop</span>
     </div>
+    <p class="muted small" id="mapNote" style="margin-top:8px;"></p>
   </section>
 
   <!-- OFFICIAL CAMPUS MAP (image: images/DLSUD-map.png) -->
@@ -111,17 +115,27 @@
   </section>
 
   <section id="timetable" class="card">
-    <div class="card-head"><h3>Stop Timetable</h3></div>
+    <div class="card-head">
+      <h3>Stop Timetable</h3>
+      <span id="timetableRoute" class="muted small"></span>
+    </div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>#</th><th>Stop</th><th>Min. from first stop</th><th>Next jeep in</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Stop</th>
+            <th>From previous stop</th>
+            <th>Time from start</th>
+            <th>Next jeep in</th>
+          </tr>
         </thead>
         <tbody id="timetableBody"></tbody>
       </table>
     </div>
     <p class="muted small" style="margin-top:12px;">
-      Positions are estimates, not GPS readings. Service hours: <span id="serviceHours"></span>
+      Positions are simulated estimates, not GPS readings. Travel times are preliminary averages of timed trips.
+      Service hours: <span id="serviceHours"></span>
     </p>
   </section>
 
