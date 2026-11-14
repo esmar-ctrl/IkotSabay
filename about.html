@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | DLSU-D Campus Jeep Tracker</title>
+  <title>Home | DLSU-D Campus Jeep Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="routes.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="driver.js" defer></script>
 </head>
 <body>
 
@@ -18,40 +21,123 @@
       </div>
     </div>
     <nav>
-      <a href="home.html#map">Live Map</a>
-      <a href="home.html#campus-map">Campus Map</a>
-      <a href="home.html#jeeps">Jeeps</a>
-      <a href="home.html#timetable">Timetable</a>
-      <a href="about.html" class="active">About</a>
+      <a href="#map">Live Map</a>
+      <a href="#campus-map">Campus Map</a>
+      <a href="#jeeps">Jeeps</a>
+      <a href="#timetable">Timetable</a>
+      <a href="about.html">About</a>
       <a href="index.html">Switch role</a>
     </nav>
   </div>
 </header>
 
-<section class="hero page-hero">
+<!-- DRIVER BANNER (only shown to a Tsuper who entered a valid code) -->
+<section id="driverBar" class="driver-bar" hidden>
+  <div class="container driver-inner">
+    <div class="driver-text">
+      <p class="driver-hello">Hello Tsuper! You are driving <strong id="driverJeep">Jeep 1</strong>.</p>
+      <p class="driver-ask">Ready to start your trip with Lasallian?</p>
+      <p id="tripMsg" class="trip-msg"></p>
+    </div>
+    <div class="driver-actions">
+      <button id="startTripBtn" class="btn-yes" type="button">Yes</button>
+      <button id="logoutBtn" class="btn-ghost" type="button">Log out</button>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
   <div class="container">
-    <h2>About this project</h2>
-    <p>The Ikot La Salle transportation tracker for De La Salle University – Dasmariñas.</p>
+    <h2>Know when your ride arrives.</h2>
+    <p>Estimated jeep arrivals per stop, based on measured and researched travel times around campus.</p>
+    <div class="finder">
+      <label for="routeSelect">Direction:</label>
+      <select id="routeSelect"></select>
+      <label for="stopSelect">I'm waiting at:</label>
+      <select id="stopSelect"></select>
+      <div class="finder-result" id="finderResult">
+        <span class="muted">Select a stop to see the next jeep.</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <main class="container">
 
-  <section id="about" class="card about-card">
-    <div class="card-head"><h3>About this project</h3></div>
-    <p>The proposed transportation system aims to improve the overall accessibility, convenience, and efficiency of the Ikot La Salle transportation service within De La Salle University–Dasmariñas. It seeks to provide a more organized and user-friendly transportation experience for students and other members of the university community. Through the development of an accessible transportation platform, the system aims to enhance the way passengers interact with and utilize the campus transportation service.</p>
-    <p class="muted small">Members: Jores, Sanchez, Ahmed</p>
+  <section id="map" class="card">
+    <div class="card-head">
+      <h3>Live Campus Map</h3>
+      <div class="controls">
+        <label class="switch">
+          <input type="checkbox" id="demoToggle" checked />
+          <span>Demo mode (ignore service hours)</span>
+        </label>
+        <span class="clock" id="clock">--:--:--</span>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <svg id="campusMap" viewBox="-70 0 740 400" role="img" aria-label="Campus jeep route map">
+        <g class="blocks">
+          <rect x="150" y="110" width="110" height="60" rx="8"/>
+          <rect x="340" y="110" width="110" height="60" rx="8"/>
+          <rect x="150" y="230" width="110" height="60" rx="8"/>
+          <rect x="340" y="230" width="110" height="60" rx="8"/>
+          <rect x="265" y="170" width="70" height="60" rx="30" class="field"/>
+        </g>
+        <path id="routePath" class="route"
+          d="M 100 300 L 100 120 Q 100 60 160 60 L 440 60 Q 500 60 500 120 L 500 300 Q 500 340 460 340 L 140 340 Q 100 340 100 300 Z"/>
+        <g id="stopsLayer"></g>
+        <g id="jeepsLayer"></g>
+      </svg>
+    </div>
+    <div class="legend">
+      <span><i class="dot stop"></i> Stop</span>
+      <span><i class="dot jeep"></i> Jeep (estimated position)</span>
+      <span><i class="dot next"></i> Selected stop</span>
+    </div>
+    <p class="muted small" id="mapNote" style="margin-top:8px;"></p>
   </section>
 
-  <section id="methodology" class="card about-card">
-    <div class="card-head"><h3>Methodology</h3></div>
-    <p><b>Graph Theory</b> is used in mapping the campus. To create a physical layout of the campus and jeep’s routes inside.</p>
-    <p><b>Algorithms</b> is used in calculating the arrival time. Will be running in the background to convert live location updates into estimated arrival times (ETAs).</p>
+  <!-- OFFICIAL CAMPUS MAP (image: images/DLSUD-map.png) -->
+  <section id="campus-map" class="card">
+    <div class="card-head">
+      <h3>Official Campus Map</h3>
+      <a href="https://www2.dlsud.edu.ph/campuslife/assets/doc/campus-map.pdf" target="_blank" rel="noopener">Download PDF</a>
+    </div>
+    <img id="mapThumb" class="map-thumb" src="images/DLSUD-map.png"
+         alt="DLSU-D official campus map" title="Click to enlarge" />
+    <p class="muted small">Click the map to enlarge it. Source: DLSU-D Campus Map (www2.dlsud.edu.ph/campus-map.htm)</p>
   </section>
 
-  <div class="back-wrap">
-    <a class="back-btn" href="home.html">← Back to tracker</a>
-  </div>
+  <section id="jeeps" class="card">
+    <div class="card-head"><h3>Jeep Status</h3></div>
+    <div id="jeepCards" class="jeep-grid"></div>
+  </section>
+
+  <section id="timetable" class="card">
+    <div class="card-head">
+      <h3>Stop Timetable</h3>
+      <span id="timetableRoute" class="muted small"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Stop</th>
+            <th>From previous stop</th>
+            <th>Time from start</th>
+            <th>Next jeep in</th>
+          </tr>
+        </thead>
+        <tbody id="timetableBody"></tbody>
+      </table>
+    </div>
+    <p class="muted small" style="margin-top:12px;">
+      Positions are simulated estimates, not GPS readings. Travel times are preliminary averages of timed trips.
+      Service hours: <span id="serviceHours"></span>
+    </p>
+  </section>
 
 </main>
 
@@ -61,9 +147,12 @@
   </div>
 </footer>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+<!-- FULL-SCREEN MAP VIEWER (tap outside the photo to close) -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button id="lightboxClose" class="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="images/DLSUD-map.png" alt="DLSU-D official campus map (enlarged)" />
+  <p class="lightbox-hint">Tap outside the photo to close</p>
+</div>
 
 </body>
 </html>
