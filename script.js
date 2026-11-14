@@ -1,7 +1,4 @@
-/* ==========================================================
-   DLSU-D Campus Jeep Tracker - FRONT-END
-   Search for "TODO (BACKEND)" for the back-end parts.
-   ========================================================== */
+
 
 var CONFIG = {
   USE_BACKEND: false,                       // TODO (BACKEND): set true when API is ready
@@ -12,17 +9,11 @@ var CONFIG = {
   SERVICE_END: "18:00"
 };
 
-/* ---------- STOPS ----------
-   name        = full name (dropdown, cards, timetable)
-   short       = shorter name drawn on the diagram so it fits
-   minFromPrev = travel minutes from the previous stop
-                 (first stop = minutes from the LAST stop back to the first)
-   TODO: replace the minutes with your team's measured times.
-   TODO (BACKEND): can come from GET /stops                       */
 var STOPS = [
   { id: 1, name: "Magdalo Gate / Rotunda (Gate 1)",  short: "Gate 1 / Rotunda",     minFromPrev: 4 },
   { id: 2, name: "Gregoria De Jesus Hall (CBAA)",    short: "De Jesus Hall (CBAA)", minFromPrev: 3 },
   { id: 3, name: "Maria Salome Llanera Hall (CEAT)", short: "Llanera Hall (CEAT)",  minFromPrev: 3 },
+  { id: 3, name: "Food Square(CEAT)", short: "Llanera Hall (CEAT)",  minFromPrev: 3 },
   { id: 4, name: "Ugnayang La Salle",                short: "Ugnayang La Salle",    minFromPrev: 4 },
   { id: 5, name: "Magdiwang Gate (Gate 3)",          short: "Gate 3 (Magdiwang)",   minFromPrev: 3 }
 ];
@@ -234,7 +225,7 @@ function renderFinder(jeeps) {
     return;
   }
   $("finderResult").innerHTML =
-    'Next jeep: <strong>' + best.jeep.label + '</strong> arriving in <strong>' +
+    'Next jeep: <strong>' + best.jeep.label + '</strong> estimate arrival time <strong>' +
     fmtETA(best.eta) + '</strong>';
 }
 
